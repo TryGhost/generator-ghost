@@ -1,0 +1,41 @@
+{
+  "name": "generator-ghost",
+  "version": "0.0.0",
+  "description": "Generate Ghost blogs.",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/sethvincent/generator-ghost",
+  "bugs": "https://github.com/sethvincent/generator-ghost/issues",
+  "author": {
+    "name": "Seth Vincent",
+    "email": "sethvincent@gmail.com",
+    "url": "https://github.com/sethvincent"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sethvincent/generator-ghost.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.13.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
