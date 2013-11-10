@@ -23,14 +23,14 @@ GhostGenerator.prototype.askFor = function askFor() {
   console.log(this.yeoman);
 
   var prompts = [{
-    type: 'confirm',
-    name: 'someOption',
-    message: 'Would you like to enable this option?',
-    default: true
+    type: 'input',
+    name: 'version',
+    message: 'What version of Ghost do you want to download?',
+    default: '0.3.3'
   }];
 
   this.prompt(prompts, function (props) {
-    this.someOption = props.someOption;
+    this.version = props.version;
 
     cb();
   }.bind(this));
@@ -38,7 +38,8 @@ GhostGenerator.prototype.askFor = function askFor() {
 
 GhostGenerator.prototype.app = function app() {
   var cb = this.async();
-  this.tarball('https://github.com/TryGhost/Ghost/archive/0.3.3.tar.gz', '.', cb);
+  this.log.writeln('Downloading version' + this.version + 'of Ghost');
+  this.tarball('https://github.com/TryGhost/Ghost/archive/' + this.version + '.tar.gz', '.', cb);
 
   //this.copy('_package.json', 'package.json');
   //this.copy('_bower.json', 'bower.json');
