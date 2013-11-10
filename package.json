@@ -1,7 +1,7 @@
 {
   "name": "generator-ghost",
-  "version": "0.0.0",
-  "description": "Generate Ghost blogs.",
+  "version": "0.0.1",
+  "description": "Generate Ghost blogs using Yeoman.",
   "keywords": [
     "yeoman-generator"
   ],
