@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var path = require('path');
+var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 
 
@@ -31,7 +32,6 @@ GhostGenerator.prototype.askFor = function askFor() {
 
   this.prompt(prompts, function (props) {
     this.version = props.version;
-
     cb();
   }.bind(this));
 };
@@ -40,12 +40,10 @@ GhostGenerator.prototype.app = function app() {
   var cb = this.async();
   this.log.writeln('Downloading version' + this.version + 'of Ghost');
   this.tarball('https://github.com/TryGhost/Ghost/archive/' + this.version + '.tar.gz', '.', cb);
-
-  //this.copy('_package.json', 'package.json');
-  //this.copy('_bower.json', 'bower.json');
 };
 
-GhostGenerator.prototype.projectfiles = function projectfiles() {
-  //this.copy('editorconfig', '.editorconfig');
-  //this.copy('jshintrc', '.jshintrc');
+GhostGenerator.prototype.casper = function casper() {
+  var cb = this.async();
+  var casper = path.join('content', 'themes', 'casper');
+  this.tarball('https://github.com/TryGhost/Casper/archive/0.9.1.tar.gz', casper, cb);
 };
