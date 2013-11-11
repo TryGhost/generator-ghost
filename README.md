@@ -35,6 +35,43 @@ Finally, initiate the generator:
 $ yo ghost
 ```
 
+To create a new theme based on Casper, run this subgenerator:
+
+```
+yo ghost:theme-copy-casper NAME-OF-NEW-THEME
+```
+
+That will copy the Casper theme over to a new folder named NAME-OF-NEW-THEME.
+
+## Additional setup
+
+Now, make sure you have the grunt-cli tool installed:
+
+```
+npm install -g grunt-cli
+```
+
+And run `grunt init` to compile the SASS, Handlebars, and create the directory for Bourbon:
+
+```
+grunt init
+```
+
+Now, you can run your ghost blog in development like usual:
+
+```
+npm start
+```
+
+## Todo
+I'd like to revise the generator to run the `grunt init` build step automatically. If anyone is interested in working with me on that I'm definitely open to contributions: [github.com/sethvincent/generator-ghost](https://github.com/sethvincent/generator-ghost).
+
+I'd also like to have a theme generator that starts a new theme that's even more bare-bones than Casper.
+
+## Feedback
+Let me know in the repository issue queue if you find any bugs or have ideas for the project: [github.com/sethvincent/generator-ghost/issues](https://github.com/sethvincent/generator-ghost/issues)
+
+
 ### Getting To Know Yeoman
 
 Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
