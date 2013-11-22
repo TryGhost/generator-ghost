@@ -38,7 +38,7 @@ GhostGenerator.prototype.askFor = function askFor() {
 
 GhostGenerator.prototype.app = function app() {
   var cb = this.async();
-  this.log.writeln('Downloading version' + this.version + 'of Ghost');
+  this.log.writeln('Downloading version ' + this.version + ' of Ghost');
   this.tarball('https://github.com/TryGhost/Ghost/archive/' + this.version + '.tar.gz', '.', cb);
 };
 
