@@ -45,10 +45,11 @@ That will copy the Casper theme over to a new folder named NAME-OF-NEW-THEME.
 
 ## Additional setup
 
-Now, make sure you have the grunt-cli tool installed:
+Now, make sure you have the grunt-cli tool installed as well as the [Bourbon](http://bourbon.io/) Ruby gem:
 
 ```
 npm install -g grunt-cli
+gem install bourbon
 ```
 
 And run `grunt init` to compile the SASS, Handlebars, and create the directory for Bourbon:
