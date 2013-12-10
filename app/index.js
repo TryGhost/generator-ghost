@@ -34,7 +34,6 @@ GhostGenerator.prototype.askFor = function askFor() {
     var choices = [];
     for(var key in releases) {
       if (!releases.hasOwnProperty(key)) { continue; }
-
       choices.push(key);
     }
 
@@ -47,7 +46,7 @@ GhostGenerator.prototype.askFor = function askFor() {
     }];
 
     self.prompt(prompts, function (props) {
-      self.version = props.version;
+      self.version = releases[props.version];
       cb();
     });
   });

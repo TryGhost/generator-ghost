@@ -6,17 +6,18 @@ var githubReleases = {
 
 		var repo = client.repo(user + '/' + repo);
 
-		repo.releases(function (err, status, body) {
+		repo.releases(function (err, body, header) {
 			if (err) {
 				return cb(err);
 			}
 
-			if (status !== 200) {
+			if (header.status !== '200 OK') {
 				return cb(new Error("Bad response from Github API: "));
 			}
 
 			var releases = body.reduce(function (memo, releaseInfo) {
-				memo[releaseInfo.name] = releaseInfo;
+				memo[releaseInfo.name] = releaseInfo.tag_name;
+				return memo;
 			}, {});
 
 			cb(null, releases);
