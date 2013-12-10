@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "yeoman-generator": "~0.13.0",
-    "fs-extra": "~0.8.1"
+    "fs-extra": "~0.8.1",
+    "octonode": "~0.4.1"
   },
   "devDependencies": {
     "mocha": "~1.12.0"

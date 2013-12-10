@@ -20,14 +20,17 @@ describe('ghost generator', function () {
     });
 
     it('creates expected files', function (done) {
+        // Extend the timeout since the github release download takes some time
+        this.timeout(10000);
+
         var expected = [
             // add files you expect to exist here.
-            '.jshintrc',
-            '.editorconfig'
+            'Gruntfile.js',
+            'core/ghost.js'
         ];
 
         helpers.mockPrompt(this.app, {
-            'someOption': true
+            'version': '0.3.3'
         });
         this.app.options['skip-install'] = true;
         this.app.run({}, function () {
