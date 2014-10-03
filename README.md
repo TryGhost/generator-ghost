@@ -19,6 +19,12 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
+Additionally, tnstall the grunt-cli tool:
+
+```
+npm install -g grunt-cli
+```
+
 ### Yeoman Generators
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
@@ -35,6 +41,12 @@ Finally, initiate the generator:
 $ yo ghost
 ```
 
+Now, you can run your ghost blog in development like usual:
+
+```
+npm start
+```
+
 To create a new theme based on Casper, run this subgenerator:
 
 ```
@@ -43,31 +55,10 @@ yo ghost:theme-copy-casper NAME-OF-NEW-THEME
 
 That will copy the Casper theme over to a new folder named NAME-OF-NEW-THEME.
 
-## Additional setup
-
-Now, make sure you have the grunt-cli tool installed as well as the [Bourbon](http://bourbon.io/) Ruby gem:
-
-```
-npm install -g grunt-cli
-gem install bourbon
-```
-
-And run `grunt init` to compile the SASS, Handlebars, and create the directory for Bourbon:
-
-```
-grunt init
-```
-
-Now, you can run your ghost blog in development like usual:
-
-```
-npm start
-```
 
 ## Todo
-I'd like to revise the generator to run the `grunt init` build step automatically. If anyone is interested in working with me on that I'm definitely open to contributions: [github.com/sethvincent/generator-ghost](https://github.com/sethvincent/generator-ghost).
 
-I'd also like to have a theme generator that starts a new theme that's even more bare-bones than Casper.
+I'd like to have a theme generator that starts a new theme that's even more bare-bones than Casper.
 
 ## Feedback
 Let me know in the repository issue queue if you find any bugs or have ideas for the project: [github.com/sethvincent/generator-ghost/issues](https://github.com/sethvincent/generator-ghost/issues)
