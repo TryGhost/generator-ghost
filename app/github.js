@@ -20,7 +20,7 @@ var githubReleases = {
 				return memo;
 			}, {});
 
-			cb(null, releases);
+			cb(null, releases, body);
 		});
 	}
 };

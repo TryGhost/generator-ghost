@@ -4,6 +4,7 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 var githubReleases = require('./github');
+var getCasper = require('./get-casper');
 
 
 var GhostGenerator = module.exports = function GhostGenerator(args, options, config) {
@@ -63,8 +64,14 @@ GhostGenerator.prototype.app = function app() {
   this.tarball('https://github.com/TryGhost/Ghost/archive/' + this.version + '.tar.gz', '.', cb);
 };
 
+
 GhostGenerator.prototype.casper = function casper() {
   var cb = this.async();
+  var self = this;
+  
   var casper = path.join('content', 'themes', 'casper');
-  this.tarball('https://github.com/TryGhost/Casper/archive/0.9.1.tar.gz', casper, cb);
+  
+  getCasper(function (tar) {
+    self.tarball(tar, casper, cb);
+  });
 };
