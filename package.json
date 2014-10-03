@@ -1,6 +1,6 @@
 {
   "name": "generator-ghost",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generate Ghost blogs and themes using Yeoman.",
   "keywords": [
     "yeoman-generator"
