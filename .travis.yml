@@ -8,7 +8,7 @@ node_js:
   - v6
 
 install:
-    - npm install -g eslint mocha
+    - npm install -g eslint mocha grunt-cli
     - npm install
 
 script:
