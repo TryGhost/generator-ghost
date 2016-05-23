@@ -1,28 +1,30 @@
-var github = require('octonode');
+var github 	= require('octonode'),
+    Promise	= require('bluebird'),
+    client	= github.client();
 
-var githubReleases = {
-	fetch: function (user, repo, cb) {
-		var client = github.client();
+function getVersions(repoName) {
+    var repo = client.repo(repoName),
+        tags = Promise.promisify(repo.tags, {context: repo});
 
-		var repo = client.repo(user + '/' + repo);
+	// jshint camelcase:false
+    client.requestDefaults.qs = {per_page: 100};
+	// jshint camelcase:true
 
-		repo.releases(function (err, body, header) {
-			if (err) {
-				return cb(err);
-			}
+    return tags;
+}
 
-			if (header.status !== '200 OK') {
-				return cb(new Error("Bad response from Github API: "));
-			}
+function getArchive(repoName) {
+    return function () {
+        var repo = client.repo(repoName),
+            archive = Promise.promisify(repo.archive, {context: repo});
 
-			var releases = body.reduce(function (memo, releaseInfo) {
-				memo[releaseInfo.name] = releaseInfo.tag_name;
-				return memo;
-			}, {});
+        return archive.apply(repo, arguments);
+    };
+}
 
-			cb(null, releases, body);
-		});
-	}
+module.exports = {
+    ghostVersions: getVersions('TryGhost/Ghost'),
+    ghostArchive: getArchive('TryGhost/Ghost'),
+    casperVersions: getVersions('TryGhost/Casper'),
+    casperArchive: getArchive('TryGhost/Casper')
 };
-
-module.exports = githubReleases;

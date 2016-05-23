@@ -1,77 +1,119 @@
-'use strict';
-var util = require('util');
-var path = require('path');
-var spawn = require('child_process').spawn;
-var yeoman = require('yeoman-generator');
-var githubReleases = require('./github');
-var getCasper = require('./get-casper');
+var _               = require('lodash');
+var generators      = require('yeoman-generator');
+var pkg             = require('../package');
+var githubUtils     = require('./github');
+var semver          = require('semver');
+var Promise         = require('bluebird');
 
+module.exports = generators.Base.extend({
+    constructor: function () {
+        generators.Base.apply(this, arguments);
 
-var GhostGenerator = module.exports = function GhostGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
+        this.option('version', {
+            desc: 'Version of Ghost to install',
+            type: 'string',
+            alias: 'v'
+        });
 
-  this.on('end', function () {
-    this.installDependencies({
-      skipInstall: options['skip-install'],
-      callback: function () {
-        this.spawnCommand('grunt', ['default']);
-      }.bind(this)
-    });
-  });
+        // @TODO: re-enable this when support for the production option is
+        // added
+        // this.option('production', {
+        //     desc: 'Whether or not the production install of Ghost should be used (zip file vs. Github repo)',
+        //     type: 'string',
+        //     alias: 'prod',
+        //     default: false
+        // });
 
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-};
+        this.option('casperVersion', {
+            desc: 'Version of Casper to install',
+            type: 'string',
+            alias: 'cv',
+            default: 'latest'
+        });
+    },
 
-util.inherits(GhostGenerator, yeoman.generators.Base);
+    initializing: function () {
+        var self = this;
 
-GhostGenerator.prototype.askFor = function askFor() {
-  var self = this;
-  var cb = this.async();
+        this.properties = _.pick(this.options, ['version', 'casperVersion']);
 
-  // have Yeoman greet the user.
-  console.log(this.yeoman);
+        this.log('Yeoman Ghost Generator v' + pkg.version);
 
-  // Grab the github releases for Ghost
-  githubReleases.fetch('TryGhost', 'Ghost', function (err, releases) {
-    // Store the available release map for later.
-    self.availableReleases = releases;
+        return Promise.props({
+            ghostVersions: githubUtils.ghostVersions(),
+            casperVersions: githubUtils.casperVersions()
+        }).then(function (results) {
+            self.ghostReleases = _.filter(_.map(results.ghostVersions, 'name'), function (val) {
+                return semver.valid(val);
+            });
 
-    // Store the release names as the choices
-    var choices = [];
-    for(var key in releases) {
-      if (!releases.hasOwnProperty(key)) { continue; }
-      choices.push(key);
+            self.casperReleases = _.filter(_.map(results.casperVersions, 'name'), function (val) {
+                return semver.valid(val);
+            });
+        });
+    },
+
+    prompting: function () {
+        var version = this.properties.version,
+            casperVersion = this.properties.casperVersion,
+            self = this,
+            prompts = [];
+
+        if (!version || (['latest', 'master', 'stable'].indexOf(version) === -1 && this.ghostReleases.indexOf(version) === -1)) {
+            prompts.push({
+                type: 'list',
+                name: 'version',
+                message: 'Version to install',
+                choices: this.ghostReleases,
+                default: this.ghostReleases[0]
+            });
+        }
+
+        if (!casperVersion || (['latest', 'master', 'stable'].indexOf(casperVersion) === -1 && this.casperReleases.indexOf(casperVersion) === -1)) {
+            prompts.push({
+                type: 'list',
+                name: 'casperVersion',
+                message: 'Casper version to install',
+                choices: this.casperReleases,
+                default: this.casperReleases[0]
+            });
+        }
+
+        return this.prompt(prompts).then(function (answers) {
+            _.assign(self.properties, answers);
+        });
+    },
+
+    writing: function () {
+        var extract = Promise.promisify(this.extract, {context: this}),
+            self = this;
+
+        if (this.properties.version === 'latest') {
+            this.properties.version = this.ghostReleases[0];
+        }
+
+        if (this.properties.casperVersion === 'latest') {
+            this.properties.casperVersion = this.casperReleases[0];
+        }
+
+        this.log('Downloading and extracting Ghost and Casper...');
+
+        return githubUtils.ghostArchive('tarball', this.properties.version).then(function (url) {
+            return extract(url, self.destinationRoot(), {strip: 1});
+        }).then(function () {
+            return githubUtils.casperArchive('tarball', self.properties.casperVersion);
+        }).then(function (casperUrl) {
+            return extract(casperUrl, self.destinationPath('content', 'themes', 'casper'), {strip: 1});
+        });
+    },
+
+    install: function () {
+        var self = this;
+
+        this.spawnCommandSync('git', ['init']);
+
+        this.npmInstall('', function () {
+            self.spawnCommand('grunt', ['init']);
+        });
     }
-
-    var prompts = [{
-      type: 'list',
-      name: 'version',
-      message: 'What version of Ghost do you want to download?',
-      choices: choices,
-      default: '0.3.3'
-    }];
-
-    self.prompt(prompts, function (props) {
-      self.version = releases[props.version];
-      cb();
-    });
-  });
-};
-
-GhostGenerator.prototype.app = function app() {
-  var cb = this.async();
-  this.log.writeln('Downloading version ' + this.version + ' of Ghost');
-  this.tarball('https://github.com/TryGhost/Ghost/archive/' + this.version + '.tar.gz', '.', cb);
-};
-
-
-GhostGenerator.prototype.casper = function casper() {
-  var cb = this.async();
-  var self = this;
-  
-  var casper = path.join('content', 'themes', 'casper');
-  
-  getCasper(function (tar) {
-    self.tarball(tar, casper, cb);
-  });
-};
+});

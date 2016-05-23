@@ -1,8 +1,16 @@
+sudo: false
 language: node_js
 node_js:
-  - '0.8'
-  - '0.10'
-before_install:
-  - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-ghost' ]; then cd .. && eval "mv $currentfolder generator-ghost" && cd generator-ghost; fi
+  - v0.10
+  - v0.12
+  - v4
+  - v5
+  - v6
 
+install:
+    - npm install -g eslint mocha
+    - npm install
+
+script:
+    - eslint "app/*.js" "casper/*.js" "test/*.js"
+    - npm test
