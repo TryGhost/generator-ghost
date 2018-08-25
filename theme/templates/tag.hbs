@@ -1,0 +1,36 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{!-- Here you can start typing the logic for your index template --}}
+<header>
+    <h2>
+        {{> "logo"}}
+    </h2>    
+</header>
+
+<main>
+    {{!-- Everything inside the #tag tags pulls data from the tag --}}
+    {{#tag}}
+        <header>
+            {{#if feature_image}}
+                <figure>
+                    <img src="{{feature_image}}" alt="{{name}}">
+                </figure>
+            {{/if}}
+
+            <h1>{{name}}</h1>
+
+            {{#if description}}
+                <p>{{description}}</p>
+            {{/if}}
+        </header>
+    {{/tag}}
+
+    <hr>
+
+    {{#foreach posts}}
+        {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
+        {{> "post-card"}}
+    {{/foreach}}
+</main>

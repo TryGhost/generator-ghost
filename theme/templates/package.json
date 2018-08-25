@@ -1,0 +1,32 @@
+{
+    "name": "skeleton",
+    "description": "A basic skeleton theme, to get started developing themes for Ghost.",
+    "version": "0.0.1",
+    "engines": {
+        "ghost": ">=2.0.0"
+    },
+    "scripts": {
+        "test": "gscan ."
+    },
+    "gpm": {
+        "type": "theme",
+        "categories": [
+            "Minimal",
+            "Blog",
+            "Skeleton"
+        ]
+    },
+    "keywords": [
+        "ghost",
+        "theme",
+        "skeleton",
+        "ghost-theme",
+        "ghost-skeleton"
+    ],
+    "devDependencies": {
+        "gscan": "^2.0.0"
+    },
+    "config": {
+        "posts_per_page": 25
+    }
+}

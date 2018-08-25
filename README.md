@@ -13,7 +13,7 @@ Trick question. It's not a thing. It's this guy:
 
 Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
+Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things*.
 
 ```
 $ npm install -g yo
@@ -22,7 +22,7 @@ $ npm install -g yo
 Additionally, tnstall the grunt-cli tool:
 
 ```
-npm install -g grunt-cli
+$ npm install -g grunt-cli
 ```
 
 ### Yeoman Generators
@@ -44,23 +44,38 @@ $ yo ghost
 Now, you can run your ghost blog in development like usual:
 
 ```
-npm start
+$ npm start
 ```
+
+#### Available Commands
+
+#### Casper
 
 To create a new theme based on Casper, run this subgenerator:
 
 ```
-yo ghost:theme-copy-casper NAME-OF-NEW-THEME
+$ yo ghost:theme-copy-casper NAME-OF-NEW-THEME
 ```
 
 That will copy the Casper theme over to a new folder named NAME-OF-NEW-THEME.
 
+#### Theme
+
+To create a new theme from scratch, run this subgenerator:
+
+```
+$ yo ghost:theme NAME-OF-NEW-THEME
+```
+
+That will copy a basic skeleton theme over to a new folder named NAME-OF-NEW-THEME.
+
 
 ## Todo
 
-I'd like to have a theme generator that starts a new theme that's even more bare-bones than Casper.
+- [ ] Improve this package and use ES6 standards instead.
 
 ## Feedback
+
 Let me know in the repository issue queue if you find any bugs or have ideas for the project: [github.com/sethvincent/generator-ghost/issues](https://github.com/sethvincent/generator-ghost/issues)
 
 

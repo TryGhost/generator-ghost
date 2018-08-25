@@ -12,5 +12,5 @@ install:
     - npm install
 
 script:
-    - eslint "app/*.js" "casper/*.js" "test/*.js"
+    - eslint "app/*.js" "casper/*.js" "theme/*.js" "test/*.js"
     - npm test

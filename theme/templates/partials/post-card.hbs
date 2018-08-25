@@ -1,0 +1,39 @@
+
+<article>
+    {{#if feature_image}}
+        <section>
+            <a href="{{url}}">
+                <img src="{{feature_image}}" alt="{{title}}">
+            </a>
+        </section>
+    {{/if}}
+
+    <section>
+        <header>
+            <a href="{{url}}">
+                <h2>{{title}}</h2>
+            </a>
+        </header>
+    </section>
+
+    <section>
+        <p>{{excerpt words="33"}}</p>
+    </section>
+
+    <footer>
+        <h4>Author:</h4>
+
+        <ul>
+        {{#foreach authors}}
+            <li>{{name}}</li>
+        {{/foreach}}
+        </ul>
+
+        <ul>
+            <li>Reading Time: {{reading_time}}</li>
+            {{#if primary_tag}}
+                <li>Primary Tag: {{primary_tag.name}}</li>
+            {{/if}}
+        </ul>
+    </footer>
+</article>

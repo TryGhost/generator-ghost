@@ -1,0 +1,41 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{!-- Here you can start typing the logic for your index template --}}
+<header>
+    <h2>
+        {{> "logo"}}
+    </h2>
+</header>
+
+<main>
+    {{#post}}
+        {{#if feature_image}}
+            <figure>
+                <img src="{{feature_image}}" alt="{{title}}">
+            </figure>
+
+            <hr>
+        {{/if}}
+
+        <h1>{{title}}</h1>
+
+        <section>{{content}}</section>
+
+        <hr>
+
+        <dl>
+            <dt>Date</dt>
+            <dd>{{date format="D MMMM YYYY"}}</dd>
+            {{#if primary_tag}}
+                {{#primary_tag}}
+                    <dt>Primary Tag</dt>
+                    <dd>
+                        <a href="{{url}}">{{name}}</a>
+                    </dd>
+                {{/primary_tag}}
+            {{/if}}
+        </dl>
+    {{/post}}
+</main>

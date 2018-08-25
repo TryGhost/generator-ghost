@@ -1,0 +1,21 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{!-- Here you can start typing the logic for your index template --}}
+<header>
+    <h1>
+        {{> "logo"}}
+    </h1>    
+</header>
+
+<main>
+    <p>{{@blog.description}}</p>
+
+    <hr>
+
+    {{#foreach posts}}
+        {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
+        {{> "post-card"}}
+    {{/foreach}}
+</main>
