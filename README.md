@@ -7,7 +7,7 @@ A generator for [Yeoman](http://yeoman.io).
 
 ### What is Yeoman?
 
-Trick question. It's not a thing. It's this guy:
+It's a tricky question. It's not a thing. It's this guy:
 
 ![](http://i.imgur.com/JHaAlBJ.png)
 
@@ -19,7 +19,7 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
-Additionally, tnstall the grunt-cli tool:
+Additionally, install the grunt-cli tool:
 
 ```
 npm install -g grunt-cli
@@ -29,7 +29,7 @@ npm install -g grunt-cli
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-ghost from npm, run:
+To install generator-ghost from npm,you can easily run:
 
 ```
 $ npm install -g generator-ghost
