@@ -73,4 +73,4 @@ If you'd like to get to know Yeoman better and meet some of his friends, [Grunt]
 
 # Copyright & License
 
-Copyright (c) 2013-2022 Seth Vincent & Ghost Foundation - Released under the [MIT license](LICENSE).
+Copyright (c) 2013-2023 Seth Vincent & Ghost Foundation - Released under the [MIT license](LICENSE).
